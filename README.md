@@ -18,3 +18,4 @@ native DestroyPlayerCircleProgressAll(playerid);
 - Diogo "blueN" - Recreate code with new natives and update funtions
 
 # Preview
+![](https://github.com/igdiogo/Circular-Progress-Samp/blob/main/preview.gif)
