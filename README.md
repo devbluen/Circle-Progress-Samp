@@ -1,7 +1,7 @@
-# 🚀 Circular Progress
-Projeto é um "modelo" melhorado de [freesampscripts](https://github.com/freesampscripts/circle-speedo)
+# 🚀 Circle Progress
+The project is an improved "model" of [freesampscripts](https://github.com/freesampscripts/circle-speedo)
 
-# ⚙️ Novas Nativas
+# ⚙️ New Natives
 ```pawn
 native CreatePlayerCircleProgress(playerid, Float:pos_x, Float:pos_y, color = 0xFFFFFFFF, background_color = 0x181818FF, Float:size = 10.0, Float:thickness = 0.2);
 native UpdatePlayerCircleProgress(playerid, drawId, value);
@@ -9,13 +9,13 @@ native DestroyPlayerCircleProgress(playerid, drawId);
 native DestroyPlayerCircleProgressAll(playerid);
 ```
 
-# 🌐 O que tem de mudanças?
-> - Os circulos são criados individuais, podendo criar até 40 progressos
-> - Adicionado novas funções nativas
+# 🌐 What are the changes?
+- Circles are created individually, allowing up to 40 progress indicators
+- Added new native functions
 
-# 📝 Créditos
+# 📝 Credits
 - freesampscripts - Create source code
-- Diogo "blueN" - Recreate code with new natives and update funtions
+- Diogo "blueN" - Recreate code with new natives and update functions
 
 # Preview
 ![](https://github.com/igdiogo/Circular-Progress-Samp/blob/main/preview.gif)
