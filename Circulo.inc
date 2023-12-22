@@ -35,8 +35,8 @@ enum CircleDraw_Enum {
     Float:CircleDraw_Thickness,
     Float:CircleDraw_Size,
     Float:CircleDraw_Value,
+    Float:CircleDraw_Polygons,
     CircleDraw_Color,
-    CircleDraw_Polygons,
     CircleDraw_Background,
 
         // Draws
@@ -109,7 +109,7 @@ stock DestroyPlayerCircleProgress(playerid, drawId) {
 	return true;
 }
 
-stock CreatePlayerCircleProgress(playerid, Float:pos_x, Float:pos_y, color = 0xFF0000FF, background_color = 0x000000FF, Float:size = 10.0, Float:thickness = 0.2, polygons = DEFAULT_CIRCLE_POLYGONS) {
+stock CreatePlayerCircleProgress(playerid, Float:pos_x, Float:pos_y, color = 0xFF0000FF, background_color = 0x000000FF, Float:size = 10.0, Float:thickness = 0.2, Float:polygons = DEFAULT_CIRCLE_POLYGONS) {
 	
     for(new i = 0; i < MAX_CIRCULOS_DRAW; i++) {
         if(CircleDraw[playerid][i][CircleDraw_Valid] == true) continue;
