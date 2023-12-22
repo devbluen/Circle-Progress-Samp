@@ -3,7 +3,7 @@ The project is an improved "model" of [freesampscripts](https://github.com/frees
 
 # ⚙️ New Natives
 ```pawn
-native CreatePlayerCircleProgress(playerid, Float:pos_x, Float:pos_y, color = 0xFFFFFFFF, background_color = 0x181818FF, Float:size = 10.0, Float:thickness = 0.2);
+native CreatePlayerCircleProgress(playerid, Float:pos_x, Float:pos_y, color = 0xFFFFFFFF, background_color = 0x181818FF, Float:size = 10.0, Float:thickness = 0.2, Float:polygons = DEFAULT_CIRCLE_POLYGONS);
 native UpdatePlayerCircleProgress(playerid, drawId, value);
 native DestroyPlayerCircleProgress(playerid, drawId);
 native DestroyPlayerCircleProgressAll(playerid);
