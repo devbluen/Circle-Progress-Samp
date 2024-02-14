@@ -14,6 +14,7 @@ native DestroyPlayerCircleProgressAll(playerid);
 > - **Thickness:** Circle line size
 > - **Polygons:** Number of points to form a perfect circle, the larger it is, the more defined it will be, but it will use more textdraw resources, the limit is 256
 > - **Size:** Circle size (match Polygons)
+> - **drawId:** ID returned by ***CreatePlayerCircleProgress*** with the circle ID
 
 # 🌐 What are the changes?
 - Circles are created individually, allowing up to 40 progress indicators
