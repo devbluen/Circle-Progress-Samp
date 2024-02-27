@@ -16,6 +16,12 @@ native DestroyPlayerCircleProgressAll(playerid);
 > - **Size:** Circle size (match Polygons)
 > - **drawId:** ID returned by ***CreatePlayerCircleProgress*** with the circle ID
 
+# 📝 Example use
+```
+new circleId = CreatePlayerCircleProgress(playerid, Float:pos_x, Float:pos_y, color = 0xFFFFFFFF, background_color = 0x181818FF, Float:size = 10.0, Float:thickness = 0.2, Float:polygons = DEFAULT_CIRCLE_POLYGONS);
+UpdatePlayerCircleProgress(playerid, circleId, 100);
+```
+
 # 🌐 What are the changes?
 - Circles are created individually, allowing up to 40 progress indicators
 - Added new native functions
