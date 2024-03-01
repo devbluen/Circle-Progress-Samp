@@ -40,6 +40,7 @@ enum CircleDraw_Enum {
     CircleDraw_Background,
 
         // Draws
+	bool:CircleDraw_Created[120 + 1],
 	PlayerText:CircleDraw_Points[120 + 1]
 }
 new CircleDraw[MAX_PLAYERS][MAX_CIRCULOS_DRAW][CircleDraw_Enum];
@@ -155,8 +156,10 @@ stock UpdatePlayerCircleProgress(playerid, drawId, value) {
             PlayerTextDrawAlignment(playerid, CircleDraw[playerid][drawId][CircleDraw_Points][count], 2);
             PlayerTextDrawLetterSize(playerid, CircleDraw[playerid][drawId][CircleDraw_Points][count], CircleDraw[playerid][drawId][CircleDraw_Thickness], CircleDraw[playerid][drawId][CircleDraw_Thickness] + (CircleDraw[playerid][drawId][CircleDraw_Thickness] * 2));
             PlayerTextDrawSetShadow(playerid, CircleDraw[playerid][drawId][CircleDraw_Points][count], 0);
-        }
-        PlayerTextDrawColor(playerid, CircleDraw[playerid][drawId][CircleDraw_Points][count], percent <= count ? (CircleDraw[playerid][drawId][CircleDraw_Background]) : (CircleDraw[playerid][drawId][CircleDraw_Color]));
+	
+			CircleDraw[playerid][drawId][CircleDraw_Created][count] = true;
+		}
+		PlayerTextDrawColor(playerid, CircleDraw[playerid][drawId][CircleDraw_Points][count], percent <= count ? (CircleDraw[playerid][drawId][CircleDraw_Background]) : (CircleDraw[playerid][drawId][CircleDraw_Color]));
         count++;
     }
 
@@ -165,7 +168,7 @@ stock UpdatePlayerCircleProgress(playerid, drawId, value) {
     CircleDraw[playerid][drawId][CircleDraw_Value] = value;
     
     for(new i = 0; i < count; i++) {
-        if(!IsValidDynamicPlayerTextDraw(playerid, CircleDraw[playerid][drawId][CircleDraw_Points][i])) continue;
+		if(!CircleDraw[playerid][drawId][CircleDraw_Created][i]) continue;
         PlayerTextDrawShow(playerid, CircleDraw[playerid][drawId][CircleDraw_Points][i]);  
     }
     return true;
