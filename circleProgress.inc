@@ -41,16 +41,15 @@ static enum CIRCLE_ENUM {
         // Colors
     E_CIRCLEDRAW_COLOR,
     E_CIRCLEDRAW_BACKGROUND,
+    E_CIRCLEDRAW_POLYGONS_COUNT,
 
         // Draws
+    bool:E_CIRCLEDRAW_CREATED[MAX_CIRCLES_POLYGONS + 1],
 	PlayerText:E_CIRCLEDRAW_POINTS[MAX_CIRCLES_POLYGONS + 1]
 };
 
-static 
-    Iterator:Circles[MAX_PLAYERS]<MAX_CIRCLES_DRAW>,
-    Iterator:CirclesPointers[MAX_PLAYERS]<MAX_CIRCLES_DRAW, MAX_CIRCLES_POLYGONS>;
-
 static
+    Iterator:Circles[MAX_PLAYERS]<MAX_CIRCLES_DRAW>,
     e_CircleDraw[MAX_PLAYERS][MAX_CIRCLES_DRAW][CIRCLE_ENUM];
 
 
@@ -106,11 +105,10 @@ stock DestroyPlayerCircleProgress(playerid, id) {
     if(!Iter_Contains(Circles[playerid], id)) 
         return false;
 
-    foreach(new i: CirclesPointers[playerid]<id>) {
+    for(new i = 0; i < e_CircleDraw[playerid][id][E_CIRCLEDRAW_POLYGONS_COUNT]; i++) {
         PlayerTextDrawDestroy(playerid, e_CircleDraw[playerid][id][E_CIRCLEDRAW_POINTS][i]);
         e_CircleDraw[playerid][id][E_CIRCLEDRAW_POINTS][i] = PlayerText:INVALID_TEXT_DRAW;
-
-        Iter_Remove(CirclesPointers[playerid]<id>, i);
+        e_CircleDraw[playerid][id][E_CIRCLEDRAW_CREATED][i] = false;
     }
 
     Iter_Remove(Circles[playerid], id);
@@ -167,13 +165,13 @@ stock UpdatePlayerCircleProgress(playerid, id, value) {
     for(new Float:v = 0.0; v < 360.0; v += preValue) {
         ctd(v + 180.0, e_CircleDraw[playerid][id][E_CIRCLEDRAW_SIZE], e_CircleDraw[playerid][id][E_CIRCLEDRAW_POSITION][0], e_CircleDraw[playerid][id][E_CIRCLEDRAW_POSITION][1], x, y);
 
-        if(!Iter_Contains(CirclesPointers[playerid]<id>, index)) {
+        if(!e_CircleDraw[playerid][id][E_CIRCLEDRAW_CREATED][index]) {
             e_CircleDraw[playerid][id][E_CIRCLEDRAW_POINTS][index] = CreatePlayerTextDraw(playerid, x, y, ".");
             PlayerTextDrawAlignment(playerid, e_CircleDraw[playerid][id][E_CIRCLEDRAW_POINTS][index], 2);
             PlayerTextDrawLetterSize(playerid, e_CircleDraw[playerid][id][E_CIRCLEDRAW_POINTS][index], e_CircleDraw[playerid][id][E_CIRCLEDRAW_THICKNESS], e_CircleDraw[playerid][id][E_CIRCLEDRAW_THICKNESS] + (e_CircleDraw[playerid][id][E_CIRCLEDRAW_THICKNESS] * 2));
             PlayerTextDrawSetShadow(playerid, e_CircleDraw[playerid][id][E_CIRCLEDRAW_POINTS][index], 0);
 
-            Iter_Add(CirclesPointers[playerid]<id>, index);
+            e_CircleDraw[playerid][id][E_CIRCLEDRAW_CREATED][index] = true;
 		}
 
 		PlayerTextDrawColor(playerid, e_CircleDraw[playerid][id][E_CIRCLEDRAW_POINTS][index], percent <= index ? (e_CircleDraw[playerid][id][E_CIRCLEDRAW_BACKGROUND]) : (e_CircleDraw[playerid][id][E_CIRCLEDRAW_COLOR]));
@@ -182,9 +180,10 @@ stock UpdatePlayerCircleProgress(playerid, id, value) {
 
     /*     Security Update           */
     e_CircleDraw[playerid][id][E_CIRCLEDRAW_VALUE] = value;
+    e_CircleDraw[playerid][id][E_CIRCLEDRAW_POLYGONS_COUNT] = index;
     
     /*     Update                    */
-    foreach(new i: CirclesPointers[playerid]<id>)
+    for(new i = 0; i < value; i++)
         PlayerTextDrawShow(playerid, e_CircleDraw[playerid][id][E_CIRCLEDRAW_POINTS][i]);  
     
     return true;
