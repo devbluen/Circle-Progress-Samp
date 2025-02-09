@@ -37,6 +37,7 @@ static enum CIRCLE_ENUM {
     Float:E_CIRCLEDRAW_SIZE,
     Float:E_CIRCLEDRAW_VALUE,
     Float:E_CIRCLEDRAW_POLYGONS,
+    Float:E_CIRCLEDRAW_MAX_VALUE,
 
         // Colors
     E_CIRCLEDRAW_COLOR,
@@ -118,7 +119,7 @@ stock DestroyPlayerCircleProgress(playerid, id) {
 	return true;
 }
 
-stock CreatePlayerCircleProgress(playerid, Float:pos_x, Float:pos_y, color = 0xFF0000FF, background_COLOR = 0x000000FF, Float:size = 10.0, Float:thickness = 0.2, Float:polygons = DEFAULT_CIRCLE_POLYGONS) {
+stock CreatePlayerCircleProgress(playerid, Float:pos_x, Float:pos_y, max_value = 100, color = 0xFF0000FF, background_COLOR = 0x000000FF, Float:size = 10.0, Float:thickness = 0.2, Float:polygons = DEFAULT_CIRCLE_POLYGONS) {
 	
     new index = Iter_Free(Circles[playerid]);
     if(index == -1) return -1;
@@ -132,6 +133,7 @@ stock CreatePlayerCircleProgress(playerid, Float:pos_x, Float:pos_y, color = 0xF
     e_CircleDraw[playerid][index][E_CIRCLEDRAW_POSITION][1] = pos_y;
     e_CircleDraw[playerid][index][E_CIRCLEDRAW_VALUE] = -1.0;   // Prevent Bugs
     e_CircleDraw[playerid][index][E_CIRCLEDRAW_POLYGONS] = polygons;
+    e_CircleDraw[playerid][index][E_CIRCLEDRAW_MAX_VALUE] = max_value;
 
     Iter_Add(Circles[playerid], index);
     UpdatePlayerCircleProgress(playerid, index, 100);
@@ -147,6 +149,7 @@ stock UpdatePlayerCircleProgress(playerid, id, value) {
         Float:preValue = e_CircleDraw[playerid][id][E_CIRCLEDRAW_POLYGONS], 
         Float:x, 
         Float:y, 
+        maxvalue = e_CircleDraw[playerid][index][E_CIRCLEDRAW_MAX_VALUE],
         preDraws,
         percent, 
         index;
@@ -156,10 +159,10 @@ stock UpdatePlayerCircleProgress(playerid, id, value) {
 
     /*      Prevent and Fix Values    */
     value = value < 0 ? 0 : value;
-	value = value > 100 ? 100 : value;
+	value = value > maxvalue ? maxvalue : value;
 
     /*      Color Fade?               */
-	percent = (preDraws * value) / 100;
+	percent = (preDraws * value) / maxvalue;
 
     /*      Update and Create Points  */
     for(new Float:v = 0.0; v < 360.0; v += preValue) {
