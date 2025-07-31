@@ -149,7 +149,7 @@ stock UpdatePlayerCircleProgress(playerid, id, value) {
         Float:preValue = e_CircleDraw[playerid][id][E_CIRCLEDRAW_POLYGONS], 
         Float:x, 
         Float:y, 
-        maxvalue = e_CircleDraw[playerid][index][E_CIRCLEDRAW_MAX_VALUE],
+        maxvalue = e_CircleDraw[playerid][id][E_CIRCLEDRAW_MAX_VALUE],
         preDraws,
         percent, 
         index;
