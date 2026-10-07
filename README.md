@@ -65,6 +65,7 @@ UpdatePlayerCircleProgress(playerid, circleId, 100);
 # 📝 Credits
 - freesampscripts - Create source code
 - Diogo "blueN" - Recreate code with new natives and update functions
+- Vitor "greeN" - Added support for new progress formats
 
 # Preview
 ![](https://github.com/igdiogo/Circular-Progress-Samp/blob/main/preview.gif)
